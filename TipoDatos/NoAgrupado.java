@@ -17,9 +17,10 @@ public class NoAgrupado{
 	public void menu(){
 		
 		//int[] lista = {1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,23,3,3,3,3,1,1,1,4,4,5,5,5,2};
-		int[] lista = {5,22,60,56,64,56,63,63,61,57,63,50,49,70,72,54,48,53,58,66,68,45,74,65,58,61,62,59,64,57,63,52,67};
-		//int[] lista = {15,17,16,16,15,17,15,18,17,16,15};		
-		for (int i = 0 ; i < lista.length; i++ ) {
+		//int[] lista = {1,2,2,2,5,5,7,8,8,9,12,12,12,13,14,15,17,17,19,20,20,23,24,25,26,26,27,28,29,29,29,30,34,38,38,40,40,41,42,43,45,46,47,47,49,49,50,51,52,52,53,53,54,55,55,58,59,59,61,61,62,63,63,63,64,66,66,67,68,69,69,69,72,72,74,76,78,78,78,78,79,79,80,81,82,82,85,85,86,87,88,88,88,91,92,93,93,95,95,99};
+		//int[] lista = {13,15,17,16,16,15,17,15,18,17,16,15,12,33};		
+		int[] lista = {2,2,5,8,8,11,14,18,19,25,26,27};
+		for (int i =  0 ; i < lista.length; i++ ) {
 			list.add(lista[i]);
 		}
 		//this.ingreso();
@@ -65,7 +66,7 @@ public class NoAgrupado{
 			this.mediana = this.list.get(mitad - 1);
 		}
 
-		System.out.printf("\nLa mediana es: %.2f \n", this.mediana);
+		System.out.printf("La mediana es: %.2f \n", this.mediana);
 	}
 
 	public void moda(){
@@ -115,23 +116,69 @@ public class NoAgrupado{
 	}
 
 	public void quartiles(){
-		int q;
-		float q1, q2, q3;
+		
 		int size = this.list.size(); 
 		System.out.println("Tamaño del array" + size);
+		
+		/*
 		if((size)% 2 == 0){
+			int q, q1, q3;
+			float  q2;
 			q1 = (1 * (size + 1))/4;
-			q2 = (2 * (size + 1))/4;
+			q = ((2 * (size + 1))/4) - 1;
+			q2 = (float)(this.list.get(q) + this.list.get(q +1)) / 2;
 			q3 = (3 * (size + 1))/4;
+			System.out.println(q1 + " " +q2 + " " +q3);
+			System.out.println("Q1 = " + this.list.get(q1) + "\nQ2 = "+ q2 + "\nQ3 = "+ this.list.get(q3));
 		}
 		else{
+			int q, q2;
+			float q1, q3;
 			q = ((1 * (size + 1))/4) - 1;
 			q1 = (float)(this.list.get(q) + this.list.get(q +1)) / 2;
 			q2 = ((2 * (size + 1))/4) - 1;
-			q = ((3 * (size + 1))/4) - 1;
-			q1 = (float)(this.list.get(q) + this.list.get(q +1)) / 2;
+			q = (	(3 * (size + 1))/4) - 1;
+			q3 = (float)(this.list.get(q) + this.list.get(q +1)) / 2;
 			System.out.println(q1 + " " +q2 + " " +q3);
 			System.out.println("Q1 = " + q1 + "\nQ2 = "+ this.list.get(q2) + "\nQ3 = "+ q3);
 		}
+		*/
+		int mitad = size / 2;
+		if(size % 2 == 0){
+			System.out.println("par");
+			if(((mitad - 1) % 2) == 0){
+				System.out.println("par");
+				System.out.println("Q1 = " + (float)(this.list.get((size / 4) - 1) + this.list.get(size / 4)) / 2);
+				this.mediana();
+				System.out.println("Q3 = " + (float)(this.list.get((size / 4) + (mitad) - 1) + this.list.get(size / 4) + (mitad)) / 2);
+			}
+			else{
+				System.out.println("impar");
+				System.out.println("Q1 = " + this.list.get((size / 4) - 1));
+				this.mediana();
+				System.out.println("Q3 = " + this.list.get((size / 4) + (mitad  + 1 ) - 1));
+			}
+		}else{
+			System.out.println("impar");
+			if(((mitad - 1) % 2) == 0){
+				System.out.println("Q1 = " + (float)(this.list.get((size / 4) - 1) + this.list.get(size / 4)) / 2);
+				this.mediana();
+				System.out.println("Q3 = " + (float)(this.list.get((size / 4) + (mitad) - 1) + this.list.get(size / 4) + (mitad)) / 2);
+			}
+			else{
+				System.out.println("par");
+				System.out.println("impar");
+				System.out.println("Q1 = " + this.list.get((size / 4) - 1));
+				this.mediana();
+				System.out.println("Q3 = " + this.list.get((size / 4) + (mitad) - 1));
+			}
+		}
+		/*double q1, q2, q3;
+		q1 =  ((size) * 0.25) - 0.5;
+		q2 =  ((size) * 0.5) - 0.5;
+		q3 =  ((size) * 0.75) - 0.5;
+		System.out.println("q1 " + q1 );
+		System.out.println("q2 " + q2 );
+		System.out.println("q3 " + q3 );*/
 	}
 }
