@@ -8,8 +8,8 @@ public class Main{
 		Scanner entrada = new Scanner(System.in);
 		System.out.println("Eliga el tipo de operación que desea hacer");
 		System.out.println("No | Opción");
-		System.out.println("1  | No Agrupados");
-		System.out.println("2  | Agrupados");
+		System.out.println("1  - Datos Simples\t(Parcial 1)");
+		System.out.println("2  - Datos Agrupados\t(Parcial 2)");
 		System.out.print("Ingrese el numero de la opción que desea realizar -> ");
 		int op = entrada.nextInt();
 

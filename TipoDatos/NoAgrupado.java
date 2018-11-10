@@ -17,6 +17,8 @@ public class NoAgrupado{
 	}
 
 	public void menu(){
+		Scanner in = new Scanner(System.in);
+		int op, c = 0;
 		/*
 		//int[] lista = {1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,23,3,3,3,3,1,1,1,4,4,5,5,5,2};
 		int[] lista = {1,2,2,2,5,5,7,8,8,9,12,12,12,13,14,15,17,17,19,20,20,23,24,25,26,26,27,28,29,29,29,30,34,38,38,40,40,41,42,43,45,46,47,47,49,49,50,51,52,52,53,53,54,55,55,58,59,59,61,61,62,63,63,63,64,66,66,67,68,69,69,69,72,72,74,76,78,78,78,78,79,79,80,81,82,82,85,85,86,87,88,88,88,91,92,93,93,95,95,99};
@@ -29,18 +31,68 @@ public class NoAgrupado{
 		for (int i =  1 ; i <= 100; i++ ) {
 			list.add(i);
 		}*/
-		this.ingreso();
-		Collections.sort(this.list);
-		this.listar();
-		System.out.printf("Media: %.2f \n", this.media());
-		System.out.println("Mediana: " + this.mediana());
-		this.moda();
-		this.quartiles();
-		System.out.printf("Varianza: %.2f \n", this.varianza());
-		System.out.printf("Desviacion Estandar: %.2f \n", this.desviacion());
+	while(c == 0){
+
+		System.out.println("Menu de datos Simples");
+		System.out.println("#  | Opcion");
+		System.out.println("1  - Ingresar datos");
+		if(this.list.size() != 0){
+			System.out.println("2  - Calcular Media");
+			System.out.println("3  - Calcular Mediana");
+			System.out.println("4  - Calcular Moda");
+			System.out.println("5  - Calcular Cuartiles Q1 Q2 Q3");
+			System.out.println("6  - Calcular Varianza");
+			System.out.println("7  - Calcular Desviacion Estandar");
+		}
+		System.out.println("0  — Salir");
+		System.out.println("Ingresa el numero de la opcion que desea seleccionar ->");
+		op = in.nextInt();
+		switch(op){
+			case 1:
+				this.ingreso();
+				Collections.sort(this.list);
+				this.listar();
+				break;
+			case 2:
+				System.out.printf("Media: %.2f \n", this.media());
+				break;
+			case 3:
+				System.out.println("Mediana: " + this.mediana());
+				break;
+			case 4:
+				this.moda();
+				break;
+			case 5:
+				this.quartiles();
+				break;
+			case 6:
+				System.out.printf("Varianza: %.2f \n", this.varianza());
+				break;
+			case 7:
+				System.out.printf("Desviacion Estandar: %.2f \n", this.desviacion());
+				break;
+			case 0:
+				c = 1;
+				break;
+			default:
+				System.out.println("Opcion invalida");
+				break;
+
+		}
+		System.out.println("Presiona cualquier tecla para continuar...");
+         new java.util.Scanner(System.in).nextLine();
 	}
+	}
+
 	public void ingreso(){
+		System.out.println("Ingresa datos con la siguiente sintaxix -> 1,2,3,4,8,9");
 		Scanner entrada = new Scanner(System.in);
+		String[] str = entrada.nextLine().split(",");
+		for (int i =  0 ; i < str.length; i++ ) {
+			list.add(Integer.parseInt(str[i]));
+		}
+		//System.out.println(Arrays.toString(str));
+		/*
 		char i = 'y';
 
 		do{
@@ -49,10 +101,11 @@ public class NoAgrupado{
 			System.out.println("Quieres continuar ingresando [Y/n]");
 			i = entrada.next().charAt(0);
 		}while(i == 'y' || i == 'Y');
+		*/
 	}
 
 	public void listar(){
-		System.out.println(Arrays.toString(list.toArray()));
+		System.out.println("Los datos ingresados son los siguientes: " + Arrays.toString(list.toArray()));
 
 	}
 
@@ -135,7 +188,7 @@ public class NoAgrupado{
 				System.out.println("Q3 = " + ((float)(this.list.get(((size / 4) + mitad) - 1) + this.list.get(((size / 4) + mitad)))/ 2));
 			}
 			else{
-				System.out.println("Q1 = " + this.list.get((1 * (size +1)/4) - 1));
+				System.out.println("Q1 = " + this.list.get((1 * (size +1)/4)));
 				System.out.println("Q2 = " + this.mediana());
 				System.out.println("Q3 = " + this.list.get((3 * (size +1)/4) - 1));
 			}
@@ -144,8 +197,7 @@ public class NoAgrupado{
 			if(((mitad) % 2) == 0){
 				System.out.println("Q1 = " + (float)(this.list.get((size / 4) - 1) + this.list.get(size / 4)) / 2);
 				System.out.println("Q2 = " + this.mediana());
-				System.out.println("Q3 = " + ((size / 4) + mitad - 1) +  " " + ((size / 4) + mitad) );
-				System.out.println("Q3 = " + ((float)(this.list.get(((size / 4) + mitad) - 1) + this.list.get(((size / 4) + mitad)))/ 2));
+				System.out.println("Q3 = " + ((float)(this.list.get(((size / 4) + mitad)) + this.list.get(((size / 4) + mitad + 1)))/ 2));
 			}
 			else{
 				System.out.println("Q1 = " + this.list.get((1 * (size +1)/4) - 1));
