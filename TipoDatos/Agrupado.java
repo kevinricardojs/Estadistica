@@ -64,10 +64,9 @@ public class Agrupado{
 				case 2:
 				this.tablaCompleta();
 				System.out.println("Presiona cualquier tecla para continuar...");
-				new java.util.Scanner(System.in).nextLine();
 				break;
 				case 3:
-				System.out.printf("Media: %.2f \n", this.media());
+				System.out.printf(GREEN + "Media: %.2f  %s\n" , this.media(), RESET);
 				break;
 				case 4:
 				this.mediana();
@@ -91,6 +90,8 @@ public class Agrupado{
 				System.out.println("Opcion invalida");
 				break;
 			}
+			System.out.println("Para continuar presione cualquier tecla...");
+			new java.util.Scanner(System.in).nextLine();
 		}
 	}
 	public void def_intevalo(){
@@ -101,13 +102,13 @@ public class Agrupado{
 	}
 
 	public void ingreso(){
-		System.out.println("Ingresa datos que se te piden a continuacion");
+		System.out.println(GREEN + "Ingresa datos que se te piden a continuacion");
 		Scanner entrada = new Scanner(System.in);
 		char i = 'y';
 
 		do{
 			Dato d = new Dato();
-			System.out.println("Nueva fila!");
+			System.out.println("Nueva fila!" + RESET);
 			System.out.println("Limite inferior");
 			d.linf(entrada.nextInt());
 			System.out.println("Limite superior");
@@ -137,7 +138,7 @@ public class Agrupado{
 	}
 
 	public void listar(){
-		System.out.println("| Linf\t| Lsup\t|   f\t|   F\t|");
+		System.out.println(BLUE + "| Linf\t| Lsup\t|   f\t|   F\t|" + RESET);
 		System.out.println("|-\t|-\t|-\t|-\t|");
 		for (int i = 0 ; i < this.list.size() ; i++) {
 			System.out.printf("|%d \t|%d\t|%d\t|%d\t|\n", this.list.get(i).linf_(), this.list.get(i).lsup_(), this.list.get(i).frecuencia_(), this.list.get(i).fa_());			
@@ -146,7 +147,7 @@ public class Agrupado{
 	}
 
 	public void tablaCompleta(){
-		System.out.println("| Linf\t| Lsup\t|   f\t|   F\t|  Lri\t| Lrsup\t|   x\t| (x - 𐤍‏) * f\t|");
+		System.out.println(BLUE + "| Linf\t| Lsup\t|   f\t|   F\t|  Lri\t| Lrsup\t|   x\t| (x - 𐤍‏) * f\t|" + RESET);
 		System.out.println("|-\t|-\t|-\t|-\t|-\t|-\t|-\t|-\t\t|");
 
 		for (int i = 0 ; i < this.list.size() ; i++) {
@@ -168,26 +169,31 @@ public class Agrupado{
 	}	
 
 	public double mediana(){
-		int d = 0;
-		double mitad = (float)this.frecuenciA / 2;
-		System.out.println("mitad" + mitad);
-		for (int i = 0; i < this.list.size() - 1; i++) {
-			if(mitad <= this.list.get(i).fa_()){
-				d = i;
-				break;
-			}
+		if(this.list.size() > 1){
+			int d = 0;
+			double mitad = (float)this.frecuenciA / 2;
+			for (int i = 0; i < this.list.size(); i++) {
+				if(mitad <= this.list.get(i).fa_()){
+					d = i;
+					break;
+				}
 
+			}
+			System.out.println(BLUE + "| Linf\t| Lsup\t|   f\t|   F\t|  Lri\t| Lrsup\t|");
+			System.out.printf("|%d \t|%d\t|%d\t|%d\t|%.2f\t|%.2f\t|\n", this.list.get(d).linf_(), this.list.get(d).lsup_(), this.list.get(d).frecuencia_(), this.list.get(d).fa_(), this.list.get(d).lri_(), this.list.get(d).lrsup_());
+			//System.out.printf("|%d \t|%d\t|%d\t|%d\t|\n", this.list.get(d).linf_(), this.list.get(d).lsup_(), this.list.get(d).frecuencia_(), this.list.get(d).fa_());
+			System.out.println(GREEN + "Mediana = " + this.list.get(d).lri_() + " + (((( " +  this.frecuenciA + ") / 2 )" +"  -  " + this.list.get(d - 1).fa_() + ") / " + this.list.get(d).frecuencia_() + ") * " + this.intervalo );
+			double total = (this.frecuenciA + 1) / 2 ;
+			total = total - this.list.get(d - 1).fa_();
+			total = total / this.list.get(d).frecuencia_();
+			total = total * this.intervalo;
+			total = total + this.list.get(d).lri_();
+			System.out.printf("La mediana es : %.2f %s\n ", total, RESET);
 		}
-		System.out.printf("|%d \t|%d\t|%d\t|%d\t|\n", this.list.get(d).linf_(), this.list.get(d).lsup_(), this.list.get(d).frecuencia_(), this.list.get(d).fa_());
-		System.out.println(this.list.get(d).lri_() + "( ( ( " + "( ( " +  (this.frecuenciA + ") / 2 )" +"  -  " + this.list.get(d - 1).fa_() + " ) / " + this.list.get(d).frecuencia_() + ") * " + this.intervalo + ")"));
-		double total = (this.frecuenciA + 1) / 2 ;
-		total = total - this.list.get(d - 1).fa_();
-		total = total / this.list.get(d).frecuencia_();
-		total = total * this.intervalo;
-		total = total + this.list.get(d).lri_();
-		//mediana = (float) (this.list.get(d).lri_() + ((( (this.frecuenciA / 2 ) -  this.list.get(d - 1).fa_() ) / this.list.get(d).frecuencia_() ) * this.intervalo));
-		System.out.println("la mediana es " + total);
-		return this.mediana;
+		else{
+			System.out.println(ROJO + "La mediana no puede ser calculada ya que no se cuenta con la frecuencia del intervalo anterior porque no existe" + RESET);	
+		}
+		return this.mediana;	
 	}
 
 
@@ -216,62 +222,64 @@ public class Agrupado{
 
 		
 		if(unic.size() > 1){
-			System.out.println("La moda son los siguientes numeros: ");
-			System.out.println("| Linf\t| Lsup\t|   f\t|");
-			for(int i = 0 ; i < this.list.size(); i++)
-				System.out.printf("|%d \t|%d\t|%d\t|", this.list.get(unic.get(i)).linf_(), this.list.get(unic.get(i)).lsup_(), this.list.get(unic.get(i)).frecuencia_());
-			System.out.println("Que se repiten " + l.get(l.size() - 1) + " veces");
+			System.out.println(BLUE + "La moda se encuentran en los siguientes intervalos: ");
+			System.out.println("| Linf\t| Lsup\t|   f\t|" + GREEN  );
+			for(int i = 0 ; i < unic.size(); i++)
+				System.out.printf("|%d \t|%d\t|%d\t|\n", this.list.get(unic.get(i)).linf_(), this.list.get(unic.get(i)).lsup_(), this.list.get(unic.get(i)).frecuencia_());
+			System.out.println("Que se repiten " + l.get(l.size() - 1) + " veces" + RESET);
 		}
 		else{
-			System.out.println("La moda esta en el siguiente intervalo ");
-			System.out.println("| Linf\t| Lsup\t|   f\t|");
-			System.out.printf("|%d \t|%d\t|%d\t|\n", this.list.get(unic.get(0)).linf_(), this.list.get(unic.get(0)).lsup_(), this.list.get(unic.get(0)).frecuencia_());
+			System.out.println(BLUE + "La moda esta en el siguiente intervalo ");
+			System.out.println("| Linf\t| Lsup\t|   f\t|" + GREEN);
+			System.out.printf("|%d \t|%d\t|%d\t|%s\n", this.list.get(unic.get(0)).linf_(), this.list.get(unic.get(0)).lsup_(), this.list.get(unic.get(0)).frecuencia_(), RESET);
 		}
 		
 	}
 
 	public void quartiles(){
-		int[] q = {1,2,3};
+		if(this.list.size() > 5){
+			int[] q = {1,2,3};
 
-		for(int i = 0; i < q.length; i++ ){
-			int d = 0;
-			double mitad = (float)(q[i] * this.frecuenciA) / 4;
-			System.out.println("mitad" + mitad);
-			for (int o = 0; o < this.list.size() - 1; o++) {
-				if(mitad <= this.list.get(o).fa_()){
-					d = o;
-					break;
+			for(int i = 0; i < q.length; i++ ){
+				int d = 0;
+				double mitad = (float)(q[i] * this.frecuenciA) / 4;
+				for (int o = 0; o < this.list.size() - 1; o++) {
+					if(mitad <= this.list.get(o).fa_()){
+						d = o;
+						break;
+					}
 				}
-			}
-			System.out.printf("|%d \t|%d\t|%d\t|%d\t|\n", this.list.get(d).linf_(), this.list.get(d).lsup_(), this.list.get(d).frecuencia_(), this.list.get(d).fa_());
-			System.out.println(this.list.get(d).lri_() + "( ( ( " + "( ( " + q[i] + " * " + this.frecuenciA + ") / 4 )" +"  -  " + this.list.get(d - 1).fa_() + " ) / " + this.list.get(d).frecuencia_() + ") * " + this.intervalo + ")");
-			double total = (q[i] * this.frecuenciA + 1) / 4 ;
-			total = total - this.list.get(d - 1).fa_();
-			total = total / this.list.get(d).frecuencia_();
-			total = total * this.intervalo;
-			total = total + this.list.get(d).lri_();
+				System.out.println("| Linf\t| Lsup\t|   f\t|   F\t|");
+				System.out.printf("|%d \t|%d\t|%d\t|%d\t|\n", this.list.get(d).linf_(), this.list.get(d).lsup_(), this.list.get(d).frecuencia_(), this.list.get(d).fa_());
+				System.out.println("Q" + q[i] + " =" +this.list.get(d).lri_() + "+ (((( " + q[i] + " * " + this.frecuenciA + ") / 4 )" + "  -  " + this.list.get(d - 1).fa_() + " ) / " + this.list.get(d).frecuencia_() + ") * " + this.intervalo + ")");
+				double total = (q[i] * this.frecuenciA + 1) / 4 ;
+				total = total - this.list.get(d - 1).fa_();
+				total = total / this.list.get(d).frecuencia_();
+				total = total * this.intervalo;
+				total = total + this.list.get(d).lri_();
 		//mediana = (float) (this.list.get(d).lri_() + ((( (this.frecuenciA / 2 ) -  this.list.get(d - 1).fa_() ) / this.list.get(d).frecuencia_() ) * this.intervalo));
-			System.out.println("Q" + q[i]+ " es " + total);
+				System.out.printf("Q%d es %.2f\n", q[i], total);
+			}
 		}
-		
+		else{
+			System.out.println(ROJO + "Debes ingresar mas filas ya que no se pueden calcular cuartiles sino existen intervalos sus intervalos anteriores" + RESET);
+		}
 	}
 
 	public double varianza(){
-		/*
-		double suma = 0;
-		for (int i = 0 ; i < this.list.size(); i++) {
-			suma += Math.pow((this.list.get(i) - this.media), 2);
+		varianza = 0;
+		for(int i = 0; i < this.list.size(); i++){
+			varianza += this.list.get(i).x_u_pow2(this.media());
 		}
-		this.varianza = (suma / this.list.size());
-		*/
+		varianza = varianza / this.frecuenciA;
+
 		return this.varianza;
-		
 	}
 
 	public double desviacion(){
-	/*
-		this.desviacion = Math.sqrt(this.varianza);
-	*/
+		
+		this.desviacion = Math.sqrt(this.varianza());
+		
 		return this.desviacion;
 
 	}
