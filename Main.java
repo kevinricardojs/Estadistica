@@ -19,6 +19,7 @@ public class Main{
 			System.out.println("No | Opción" + RESET);
 			System.out.println(CYAN + "1  - Datos Simples\t(Parcial 1)" + RESET);
 			System.out.println(MORADO + "2  - Datos Agrupados\t(Parcial 2)" + RESET);
+			System.out.println(VERDE + "3  - Hecho por" + RESET);
 			System.out.println("0  - Salir");
 			System.out.print("Ingrese el numero de la opción que desea realizar -> ");
 			int op = entrada.nextInt();
@@ -29,6 +30,12 @@ public class Main{
 				break;
 				case 2:
 				Agrupado a = new Agrupado();
+				break;
+				case 3:
+				System.out.println("\u001B[44m" + "Nombre:\t \tKevin Ricardo Jimenez Samayoa");
+				System.out.println("Carnet:\t\t2190-17-9377");
+				System.out.println("Curso:\t\tEstadistica");
+				System.out.println("Entrega:\t12 de Noviembre 2018" + RESET);
 				break;
 				case 0:
 					i = 1;
