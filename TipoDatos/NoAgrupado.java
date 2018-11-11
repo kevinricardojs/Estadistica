@@ -6,6 +6,10 @@ import java.util.Collections;
 import java.util.HashSet;
 
 public class NoAgrupado{
+	public static final String RESET = "\u001B[0m";
+	public static final String ROJO = "\u001B[31m";
+	public static final String VERDE = "\u001B[32m";
+	public static final String AZUL = "\u001B[34m";
 	private ArrayList<Integer> list = new ArrayList<>();
 	private float media;
 	private float mediana;
@@ -33,7 +37,7 @@ public class NoAgrupado{
 		}*/
 	while(c == 0){
 
-		System.out.println("Menu de datos Simples");
+		System.out.println(VERDE + "Menu de datos Simples" + RESET);
 		System.out.println("#  | Opcion");
 		System.out.println("1  - Ingresar datos");
 		if(this.list.size() != 0){
@@ -45,7 +49,7 @@ public class NoAgrupado{
 			System.out.println("7  - Calcular Desviacion Estandar");
 		}
 		System.out.println("0  — Salir");
-		System.out.println("Ingresa el numero de la opcion que desea seleccionar ->");
+		System.out.println(AZUL + "Ingresa el numero de la opcion que desea seleccionar: " + RESET );
 		op = in.nextInt();
 		switch(op){
 			case 1:
@@ -54,28 +58,30 @@ public class NoAgrupado{
 				this.listar();
 				break;
 			case 2:
-				System.out.printf("Media: %.2f \n", this.media());
+				System.out.printf(VERDE + "Media: %.2f \n" + RESET, this.media());
 				break;
 			case 3:
-				System.out.println("Mediana: " + this.mediana());
+				System.out.println(VERDE + "Mediana: " + this.mediana() + RESET);
 				break;
 			case 4:
 				this.moda();
 				break;
 			case 5:
+				System.out.println(VERDE);
 				this.quartiles();
+				System.out.println(RESET);
 				break;
 			case 6:
-				System.out.printf("Varianza: %.2f \n", this.varianza());
+				System.out.printf(VERDE + "Varianza: %.2f \n" + RESET, this.varianza());
 				break;
 			case 7:
-				System.out.printf("Desviacion Estandar: %.2f \n", this.desviacion());
+				System.out.printf(VERDE + "Desviacion Estandar: %.2f \n" + RESET, this.desviacion());
 				break;
 			case 0:
 				c = 1;
 				break;
 			default:
-				System.out.println("Opcion invalida");
+				System.out.println(ROJO + "Opcion invalida" + RESET);
 				break;
 
 		}
@@ -85,7 +91,7 @@ public class NoAgrupado{
 	}
 
 	public void ingreso(){
-		System.out.println("Ingresa datos con la siguiente sintaxix -> 1,2,3,4,8,9");
+		System.out.println(VERDE + "Ingresa datos con la siguiente sintaxix -> 1,2,3,4,8,9" + RESET);
 		Scanner entrada = new Scanner(System.in);
 		String[] str = entrada.nextLine().split(",");
 		for (int i =  0 ; i < str.length; i++ ) {
@@ -105,7 +111,7 @@ public class NoAgrupado{
 	}
 
 	public void listar(){
-		System.out.println("Los datos ingresados son los siguientes: " + Arrays.toString(list.toArray()));
+		System.out.println(VERDE + "Los datos ingresados son los siguientes: " + Arrays.toString(list.toArray()) + RESET);
 
 	}
 
@@ -167,19 +173,18 @@ public class NoAgrupado{
 			}
 		}	
 		if(unic.size() > 1){
-			System.out.println("La moda son los siguientes numeros: " + Arrays.toString(unic.toArray()));
-			System.out.println("Que se repiten " + cantMayor + " veces");
+			System.out.println(VERDE + "La moda son los siguientes numeros: " + Arrays.toString(unic.toArray()));
+			System.out.println("Que se repiten " + cantMayor + " veces" + RESET);
 		}
 		else{
-			System.out.println("La mayor es: " + cantMayor);
-			System.out.println("La moda es: " + mayor);
+			System.out.println(VERDE + "La mayor es: " + cantMayor);
+			System.out.println("La moda es: " + mayor + RESET);
 		}
 	}
 
 	public void quartiles(){
 		
 		int size = this.list.size(); 
-		System.out.println("Tamaño del array " + size);
 		int mitad = size / 2;
 		if(size % 2 == 0){
 			if(((mitad) % 2) == 0){
